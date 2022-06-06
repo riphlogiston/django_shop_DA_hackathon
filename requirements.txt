@@ -24,3 +24,12 @@ ruamel.yaml.clib==0.2.6
 sqlparse==0.4.2
 uritemplate==4.1.1
 urllib3==1.26.9
+
+
+  1 | pbkdf2_sha256$260000$7IlM3En5vK7VsD0dAIvTfH$wilzLjQEed0jZjJNhjf3BBoJIZTNT/cskqS9c2jRi8E= |            | riphlogiston@gmail.com | daria |           | t         | f        | 
+(1 row)
+
+~
+
+  1 | !HVokh7FjcwcodMd45HjuwNj6ijIMtUEUDgjNB4HN |            | riphlogiston@gmail.com | daria |           | t         | f        | 
+(1 row)
