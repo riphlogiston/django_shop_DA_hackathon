@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import ListCreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import viewsets
 from rest_framework.filters import OrderingFilter
@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 
 from .permissions import IsAuthorOrAdminPermission
 from .serializers import *
-from .models import Favourite, Product, Likes
+from .models import Favourite, Product, Likes, Product_Image
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -86,7 +86,20 @@ class FavouriteView(ListAPIView):
 
     def get_queryset(self):
         queryset=super().get_queryset()
-        #Select * from Product Where user=request.user and Product.favourite=True
-        #                        related_name      FK                    related_name      boolean_fiels
         queryset=queryset.filter(favourites__user=self.request.user, favourites__favourite=True)
         return queryset
+
+
+class PostImageView(ListCreateAPIView):
+    queryset = Product_Image.objects.all()
+    serializer_class = PostImageSerializer
+    permission_class=[IsAuthenticated,]
+
+    def post(self, request, *args, **kwargs):
+        data=request.FILES
+        if data.get('image', 0):
+            return self.create(request, *args, **kwargs)
+        else:
+            return Response("You haven't add any images")
+    
+
