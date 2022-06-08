@@ -19,11 +19,11 @@ class CartItemSerializer(serializers.ModelSerializer):
         rep['total_price'] = instance.get_total_price_item()
         return rep
 
-    # def create(self, validated_data):
-    #     cart = self.context.get("request").user.cart
-    #     product = validated_data.get('product')
-    #     quantity = validated_data.get('quantity')
-    #     return CartItem.objects.create(cart_shopping=cart, product=product, quantity=quantity)
+    def create(self, validated_data):
+        cart = self.context.get("request").user.cart
+        product = validated_data.get('product')
+        quantity = validated_data.get('quantity')
+        return CartItem.objects.create(cart_shopping=cart, product=product, quantity=quantity)
 
 
 class ShoppingCartSerializer(serializers.ModelSerializer):

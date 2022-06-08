@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
 
 from .serializers import *
 from .models import CustomUser
+from apps.cart.models import ShoppingCart
 
 User=get_user_model()
 
@@ -28,6 +29,7 @@ class ActivationView(APIView):
         user.is_active=True
         user.activation_code=''
         user.save()
+        ShoppingCart.objects.create(user=user)
         return Response('Your account is successfully activated', status=status.HTTP_200_OK)
 
 

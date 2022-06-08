@@ -29,4 +29,4 @@ class CartItem(models.Model):
 
 
     def __str__(self) -> str:
-        return f'{self.id} {self.cart_shopping.user.username}'
+        return f'{self.id} {self.cart_shopping.user.email}'
