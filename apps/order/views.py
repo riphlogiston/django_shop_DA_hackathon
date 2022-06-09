@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from .models import Order
 from .serializers import OrderSerializer
-from apps.cart.models import ShoppingCart
+from apps.cart.models import ShoppingCart,CartItem
 from .services.utils import send_order_confirmation
 
 
@@ -27,10 +27,17 @@ class OrderViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        order=ShoppingCart.objects.filter(user=user)[0].cart_item.all()
+        cart=CartItem.objects.filter(cart_shopping__user=user, ordered=False, order=0)
+        print(cart)
+        for c in cart:
+            c.ordered=True
+            print(serializer.data.get('id'))
+            c.order=serializer.data.get('id')
+            c.save()
+
         send_order_confirmation(user.email)
-        order.delete()
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 
         

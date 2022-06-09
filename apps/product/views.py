@@ -1,7 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import viewsets
-from rest_framework.filters import OrderingFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 import django_filters.rest_framework as filters
 from rest_framework.response import Response 
 from rest_framework.decorators import action
@@ -19,8 +19,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
     serializer_class=ProductDetailSerializer
     pagination_class = ProductPagination
-    filter_backends=(DjangoFilterBackend,OrderingFilter)
+    filter_backends=(DjangoFilterBackend,OrderingFilter, SearchFilter)
     filterset_fields = ["is_published", "title"]
+    search_fields = ['title']
     ordering_fields=['title', 'price']
 
     def get_serializer_class(self):

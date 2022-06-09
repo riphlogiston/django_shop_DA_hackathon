@@ -20,9 +20,9 @@ class OrderSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(msg, code='no cart item')
         return attrs
     
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     representation['products'] = CartItemSerializer(instance.shopping_cart.cart_item.filter(ordered=True, order_item=None), many=True).data
-    #     representation['total_price'] = instance.shopping_cart.get_total_all_price()
-    #     representation['owner']=instance.shopping_cart.user.email
-    #     return representation
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['products'] = CartItemSerializer(instance.shopping_cart.cart_item.filter(ordered=True, order=instance.id), many=True).data
+        # representation['total_price'] = instance.shopping_cart.cart_item.filter(order=instance.id).get_total_all_price()
+        representation['owner']=instance.shopping_cart.user.email
+        return representation

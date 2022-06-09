@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from apps.product.models import Product
+# from apps.order.models import Order
 
 User=get_user_model()
 
@@ -24,6 +25,7 @@ class CartItem(models.Model):
     cart_shopping = models.ForeignKey(to=ShoppingCart, on_delete=models.CASCADE, related_name='cart_item')
     quantity = models.PositiveIntegerField(default=1)
     ordered=models.BooleanField(default=False)
+    order=models.PositiveIntegerField(default=0)
 
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.cart.models import ShoppingCart, CartItem
+from apps.cart.models import ShoppingCart
 from django.core.mail import send_mail
 
 
