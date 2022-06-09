@@ -23,9 +23,14 @@ class CartItem(models.Model):
     product: Product = models.ForeignKey(to=Product, on_delete=models.SET_NULL, null=True, related_name='product_in_cart')
     cart_shopping = models.ForeignKey(to=ShoppingCart, on_delete=models.CASCADE, related_name='cart_item')
     quantity = models.PositiveIntegerField(default=1)
+    ordered=models.BooleanField(default=False)
+
+
 
     def get_total_price_item(self):
-        return self.product.price * self.quantity
+        if self.ordered==False:
+            return self.product.price * self.quantity
+        return 0
 
 
     def __str__(self) -> str:

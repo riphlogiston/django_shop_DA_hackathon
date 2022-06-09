@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('favourites/', FavouriteView.as_view()),
     path('add_image/', PostImageView.as_view()),
+    
 ]

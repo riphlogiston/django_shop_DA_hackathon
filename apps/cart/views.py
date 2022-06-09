@@ -37,7 +37,6 @@ class ShoppingCartView(APIView):
         cart_item.delete()
         return Response({'message': 'we delete product in cart'}, status=status.HTTP_200_OK)
 
-
 class AddProductInCartView(APIView):
     permission_classes = (IsAuthenticated,)
 

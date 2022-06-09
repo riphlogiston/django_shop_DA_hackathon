@@ -6,16 +6,21 @@ import django_filters.rest_framework as filters
 from rest_framework.response import Response 
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 from .permissions import IsAuthorOrAdminPermission
 from .serializers import *
 from .models import Favourite, Product, Likes, Product_Image
+from apps.product.paginations import ProductPagination
 
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
     serializer_class=ProductDetailSerializer
-    filter_backends=(filters.DjangoFilterBackend,OrderingFilter)
+    pagination_class = ProductPagination
+    filter_backends=(DjangoFilterBackend,OrderingFilter)
+    filterset_fields = ["is_published", "title"]
     ordering_fields=['title', 'price']
 
     def get_serializer_class(self):
