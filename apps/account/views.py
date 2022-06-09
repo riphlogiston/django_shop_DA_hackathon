@@ -59,7 +59,7 @@ class ForgetPasswordView(APIView):
         print(new_password)
         user.set_password(new_password)
         user.save()
-        user.send_new_password()
+        user.send_new_password(new_password)
         return Response({'message': 'your new password was send to email'}, status=status.HTTP_200_OK)
 
 class ChangePasswordView(APIView):

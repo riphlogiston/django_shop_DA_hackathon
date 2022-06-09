@@ -72,9 +72,9 @@ class CustomUser(AbstractBaseUser):
             [self.email, ]
         )
 
-    def send_new_password(self):
+    def send_new_password(self, new_password):
         message=f'''
-            Your new_password {self.activation_code}
+            Your new_password {new_password}
             '''
         send_mail(
             'New Password for Django_shop', 
