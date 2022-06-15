@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 
 from .serializers import *
 from .models import CustomUser
@@ -33,8 +35,8 @@ class ActivationView(APIView):
         return Response('Your account is successfully activated', status=status.HTTP_200_OK)
 
 
-class LoginView(ObtainAuthToken):
-    serializer_class = CustomAuthTokenSerializer
+class LoginView (TokenObtainPairView):
+    serializer_class=LoginSerializer
     
 
 class LogoutView(APIView):

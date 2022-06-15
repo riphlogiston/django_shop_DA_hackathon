@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,17 +52,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
-    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -138,10 +144,12 @@ AUTH_USER_MODEL = 'account.CustomUser'
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT=BASE_DIR/ 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -156,11 +164,23 @@ EMAIL_PORT=config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+
+SIMPLE_JWT={
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=250),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 
 
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+

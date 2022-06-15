@@ -1,4 +1,6 @@
 asgiref==3.5.2
+beautifulsoup4==4.11.1
+bs4==0.0.1
 certifi==2022.5.18.1
 charset-normalizer==2.0.12
 coreapi==2.3.3
@@ -21,15 +23,8 @@ pytz==2022.1
 requests==2.27.1
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
+soupsieve==2.3.2.post1
 sqlparse==0.4.2
 uritemplate==4.1.1
 urllib3==1.26.9
-
-
-  1 | pbkdf2_sha256$260000$7IlM3En5vK7VsD0dAIvTfH$wilzLjQEed0jZjJNhjf3BBoJIZTNT/cskqS9c2jRi8E= |            | riphlogiston@gmail.com | daria |           | t         | f        | 
-(1 row)
-
-~
-
-  1 | !HVokh7FjcwcodMd45HjuwNj6ijIMtUEUDgjNB4HN |            | riphlogiston@gmail.com | daria |           | t         | f        | 
-(1 row)
+djangorestframework-simplejwt
