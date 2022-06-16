@@ -14,6 +14,8 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        if getattr(self, "swagger_fake_view", False):
+            return Order.objects.none()
         return Order.objects.filter(shopping_cart__user=user)
     
     def get_permissions(self):

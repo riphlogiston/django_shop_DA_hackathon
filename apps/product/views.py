@@ -20,9 +20,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class=ProductDetailSerializer
     pagination_class = ProductPagination
     filter_backends=(DjangoFilterBackend,OrderingFilter, SearchFilter)
-    filterset_fields = ["is_published", "title"]
-    search_fields = ['title']
-    ordering_fields=['title', 'price']
+    filterset_fields = ["is_published", "name"]
+    search_fields = ['name']
+    ordering_fields=['name', 'price']
 
     def get_serializer_class(self):
         if self.action=='list':
@@ -92,6 +92,8 @@ class FavouriteView(ListAPIView):
 
     def get_queryset(self):
         queryset=super().get_queryset()
+        if getattr(self, "swagger_fake_view", False):
+            return Product.objects.none()
         queryset=queryset.filter(favourites__user=self.request.user, favourites__favourite=True)
         return queryset
 

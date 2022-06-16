@@ -15,7 +15,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['product'] = instance.product.title
+        rep['product'] = instance.product.name
         rep['total_price'] = instance.get_total_price_item()
         rep['ordered']=instance.ordered
         return rep

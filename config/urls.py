@@ -37,13 +37,11 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
-
 urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('api/v1/account/', include('apps.account.urls')),
-    path('api/v1/category/', include('apps.category.urls')),
     path('api/v1/', include('apps.product.urls')),
     path('api/v1/shoppingcart/', include('apps.cart.urls')),
     path('api/v1/', include('apps.order.urls')),

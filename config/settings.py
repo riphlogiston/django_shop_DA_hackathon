@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     #apps
     'apps.account',
     'apps.cart',
-    'apps.category',
+    # 'apps.category',
     'apps.order',
     'apps.product',
 
@@ -183,4 +183,3 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
-

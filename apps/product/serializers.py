@@ -6,11 +6,11 @@ from .models import Product, Review, Product_Image
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Product
-        fields=('id', 'title', 'price', 'watch', 'is_published')
+        fields=('id', 'name', 'category', 'price', 'watch', 'is_published')
     def to_representation(self, instance):
         representation=super().to_representation(instance)
         representation['author']=instance.author.email
-        representation['category']=instance.category.title
+        # representation['category']=instance.category.title
         representation['reviews']=instance.reviews.all().count()
         return representation
 
@@ -27,7 +27,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation=super().to_representation(instance)
         representation['author']=instance.author.email
-        representation['category']=instance.category.title
+        # representation['category']=instance.category.title
         representation['images'] = PostImageSerializer(instance.images.all(),
                                                        many=True).data
         representation['reviews']=ReviewSerializer(instance.reviews.all(), many=True).data
@@ -49,7 +49,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation=super().to_representation(instance)
         representation['author']=instance.author.email
-        representation['product']=instance.product.title
+        representation['product']=instance.product.name
         return representation
 
 class FavouriteSerializer(serializers.ModelSerializer):
