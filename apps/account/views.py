@@ -6,6 +6,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.views import TokenObtainPairView
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.decorators import api_view
 
 
 
@@ -16,6 +19,12 @@ from apps.cart.models import ShoppingCart
 User=get_user_model()
 
 class RegistrationView(APIView):
+
+    test_param = openapi.Parameter('test', openapi.IN_QUERY, description="test manual param", type=openapi.TYPE_BOOLEAN)
+    user_response = openapi.Response('response description', RegistrationSerializer)
+    # @swagger_auto_schema(method='get', manual_parameters=[test_param], responses={200: RegistrationSerializer})
+    @swagger_auto_schema(methods=['post'], request_body=RegistrationSerializer)
+    @api_view(['POST'])
     def post(self,request):
         serializer=RegistrationSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -41,6 +50,7 @@ class LoginView (TokenObtainPairView):
     
 
 class LogoutView(APIView):
+
     def get(self,request):
         user=request.user
         token=Token.objects.get(user=user)
@@ -50,6 +60,12 @@ class LogoutView(APIView):
 
 class ForgetPasswordView(APIView):
 
+    
+    test_param = openapi.Parameter('test', openapi.IN_QUERY, description="test manual param", type=openapi.TYPE_BOOLEAN)
+    user_response = openapi.Response('response description', ForgetPasswordSerializer)
+    @swagger_auto_schema(method='get', manual_parameters=[test_param], responses={200: ForgetPasswordSerializer})
+    @swagger_auto_schema(methods=['put','post'], request_body=ForgetPasswordSerializer)
+    @api_view(['GET', 'PUT', 'POST'])
     def post(self, request):
         data = request.POST
         serializer = ForgetPasswordSerializer(data=data)
@@ -66,6 +82,13 @@ class ForgetPasswordView(APIView):
         return Response({'message': 'your new password was send to email'}, status=status.HTTP_200_OK)
 
 class ChangePasswordView(APIView):
+
+
+    test_param = openapi.Parameter('test', openapi.IN_QUERY, description="test manual param", type=openapi.TYPE_BOOLEAN)
+    user_response = openapi.Response('response description', ChangePasswordSerializer)
+    @swagger_auto_schema(method='get', manual_parameters=[test_param], responses={200: ChangePasswordSerializer})
+    @swagger_auto_schema(methods=['put','post'], request_body=ChangePasswordSerializer)
+    @api_view(['GET', 'PUT', 'POST'])
 
     def post(self, request):
         data = request.POST
